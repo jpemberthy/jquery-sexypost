@@ -1,10 +1,9 @@
 /*!
  * jQuery.sexyPost v1.0.0
- * http://github.com/jurisgalang/
+ * http://github.com/jurisgalang/jquery-sexypost
  *
  * Copyright 2010, Juris Galang
  * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://github.com/jurisgalang/
  *
  * Date: Sat June 26 14:20:01 2010 -0800
  */
