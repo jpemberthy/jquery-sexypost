@@ -7,8 +7,8 @@ of a form send or a file upload.
 Requirements
 ------------
 
-jQuery version 1.4.2 and up (will likely work on older versions)
-HTML5 ready browsers (eg: Safari 5.0+, Firefox 4.0+, Chrome 6.0+)
++ jQuery version 1.4.2 and up (will likely work on older versions)
++ HTML5 ready browsers (eg: Safari 5.0+, Firefox 4.0+, Chrome 6.0+)
 
 Usage
 -----
