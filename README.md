@@ -78,7 +78,7 @@ How It Works
 ------------
 
 The plugin uses XmlHttpRequest Level 2 and the new FormData interface supported by HTML5 ready browsers to send your form.
-Read: <http://dev.w3.org/2006/webapi/XMLHttpRequest-2/Overview.html> for more information.
+Read: [XmlHttpRequest Level 2](http://dev.w3.org/2006/webapi/XMLHttpRequest-2/Overview.html) for more information.
 
 License
 -------
