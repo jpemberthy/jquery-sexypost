@@ -85,8 +85,8 @@ License
 
 Dual licensed under the MIT or GPL Version 2 licenses.
 
-Copyright
----------
 
-Copyright 2010, Juris Galang. All Rights Reserved.
+---
+
+Copyright &copy; 2010, Juris Galang. All Rights Reserved.
 
