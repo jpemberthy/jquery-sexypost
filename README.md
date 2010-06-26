@@ -1,7 +1,7 @@
 jQuery.sexyPost
 ===============
 
-jQuery.sexyPost attaches callback hooks to a form's submit event. Allowing your webapp, for example, to monitor the progress
+`jQuery.sexyPost` attaches callback hooks to a form's submit event. Allowing your webapp, for example, to monitor the progress
 of a form send or a file upload.
 
 Requirements
@@ -13,7 +13,7 @@ HTML5 ready browsers (eg: Safari 5.0+, Firefox 4.0+, Chrome 6.0+)
 Usage
 -----
 
-Drop the javascript files in your webapp's public/javascripts directory or symlink to it.
+Drop the javascript files in your webapp's `public/javascripts` directory or symlink to it.
 Then reference the plugin (obviously it requires jQuery):
 
     <script src='/javascripts/jquery.js' type='text/javascript'></script>
@@ -51,7 +51,7 @@ Then sexify it:
 Submit Events
 -------------
 
-jQuery.sexyPost makes the following events available on form submission:
+`jQuery.sexyPost` makes the following events available on form submission:
 
     onstart   : function(event) { }                            // triggered right before the form is submitted
     onprogress: function(event, completed, loaded, total) { }  // repeatedly triggered while the form is being submitted
@@ -67,7 +67,7 @@ Submit Triggers
 ---------------
 
 You may also assign other elements in the form as submit triggers. 
-You do this by assigning the submit-trigger class:
+You do this by assigning the `submit-trigger` class:
 
     <input name="attachments[] id="attachments" type="file" multiple="multiple" class="submit-trigger" />
     <img src="/images/button.png" class="submit-trigger" />
