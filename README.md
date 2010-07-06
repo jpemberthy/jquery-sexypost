@@ -59,9 +59,10 @@ Submit Events
     onerror   : function(event) { }                            // triggered if an error occurs during submission
     onabort   : function(event) { }                            // triggered if an abort() signal is received
 
-And a single property:
+And these properties:
 
-    async: true                                                // set to true to submit the form asynchronously
+    async    : true                                            // set to true to submit the form asynchronously
+    autoclear: false                                           // automatically clear the form on successful post
 
 Submit Triggers
 ---------------

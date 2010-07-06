@@ -13,7 +13,7 @@
     var config = { 
       // options
       async    : true,                                           // set to true to submit the form asynchronously
-      autoclear: false,                                          // automaticall clear the form on successful post
+      autoclear: false,                                          // automatically clear the form on successful post
                                                                  
       // events                                                  
       onstart   : function(event) { },                           // triggered right before the form is submitted
