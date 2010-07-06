@@ -1,1 +1,1 @@
-../../../jquery.sexypost-1.0.1.min.js
+../../../releases/jquery.sexypost-1.0.1.min.js
