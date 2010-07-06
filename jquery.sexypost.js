@@ -12,7 +12,8 @@
     var events = [ "onstart", "onprogress", "oncomplete", "onerror", "onabort", "onfilestart", "onfilecomplete" ];
     var config = { 
       // options
-      async : true,                                              // set to true to submit the form asynchronously
+      async    : true,                                           // set to true to submit the form asynchronously
+      autoclear: false,                                          // automaticall clear the form on successful post
                                                                  
       // events                                                  
       onstart   : function(event) { },                           // triggered right before the form is submitted
@@ -56,6 +57,7 @@
       }
 
       xhr.onload = function(event) { 
+        if (config.autoclear && (xhr.status >= 200) && (xhr.status <= 204)) clearFields(form);
         form.trigger("sexyPost.oncomplete", [xhr.responseText]); 
       }
 
@@ -70,6 +72,13 @@
       xhr.upload["onprogress"] = function(event) { 
         var completed = event.loaded / event.total;
         form.trigger("sexyPost.onprogress", [completed, event.loaded, event.total]); 
+      }
+
+      // this function will clear all the fields in a form
+      function clearFields(form) {
+        $(":input", form)
+          .not(":button, :submit, :reset, :hidden")
+          .removeAttr("checked").removeAttr("selected").val("");
       }
       
       // this function will POST the contents of the selected form via XmlHttpRequest.
