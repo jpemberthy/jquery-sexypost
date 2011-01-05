@@ -36,10 +36,10 @@ Then sexify it:
     <script type="text/javascript">
       $(document).ready(function(){
         $(form).sexyPost({
-          onprogress: function(event, completed, loaded, total) {
+          progress: function(event, completed, loaded, total) {
             $("#status").text("Uploading: " + (completed * 100).toFixed(2) + "% complete...")
           },
-          oncomplete: function(event, responseText) {
+          complete: function(event, responseText) {
             $("#status").text("Upload complete.")
           }
         })
@@ -80,9 +80,7 @@ Read: [XmlHttpRequest Level 2](http://dev.w3.org/2006/webapi/XMLHttpRequest-2/Ov
 Sample Application
 ------------------
 For reference I've included a sample application that uses the plugin. It's self-hosting using [Sinatra](http://www.sinatrarb.com/)
-and [Haml](http://haml-lang.com/)
-
-To see it in action:
+and [Haml](http://haml-lang.com/). To see it in action:
 
     cd sample-app
     bundle install
