@@ -9,18 +9,18 @@
  */
 (function($){
   $.fn.sexyPost = function(options) {
-    var events = [ "onstart", "onprogress", "oncomplete", "onerror", "onabort", "onfilestart", "onfilecomplete" ];
+    var events = [ "start", "progress", "complete", "error", "abort", "filestart", "filecomplete" ];
     var config = { 
       // options
       async    : true,                                           // set to true to submit the form asynchronously
       autoclear: false,                                          // automatically clear the form on successful post
                                                                  
       // events                                                  
-      onstart   : function(event) { },                           // triggered right before the form is submitted
-      onprogress: function(event, completed, loaded, total) { }, // repeatedly triggered while the form is being submitted
-      oncomplete: function(event, responseText) { },             // triggered after the form has been fully submitted
-      onerror   : function(event) { },                           // triggered if an error occurs during submission
-      onabort   : function(event) { }                            // triggered if an abort() signal is received
+      start   : function(event) { },                           // triggered right before the form is submitted
+      progress: function(event, completed, loaded, total) { }, // repeatedly triggered while the form is being submitted
+      complete: function(event, responseText) { },             // triggered after the form has been fully submitted
+      error   : function(event) { },                           // triggered if an error occurs during submission
+      abort   : function(event) { }                            // triggered if an abort() signal is received
     };
 
     if (options) $.extend(config, options);
@@ -53,25 +53,25 @@
       var xhr = new XMLHttpRequest();
       
       xhr.onloadstart = function(event) { 
-        form.trigger("sexyPost.onstart");    
+        form.trigger("sexyPost.start");
       }
 
       xhr.onload = function(event) { 
         if (config.autoclear && (xhr.status >= 200) && (xhr.status <= 204)) clearFields(form);
-        form.trigger("sexyPost.oncomplete", [xhr.responseText]); 
+        form.trigger("sexyPost.complete", [xhr.responseText]); 
       }
 
       xhr.onerror = function(event) { 
-        form.trigger("sexyPost.onerror");    
+        form.trigger("sexyPost.error");    
       }
 
       xhr.onabort = function(event) { 
-        form.trigger("sexyPost.onabort");    
+        form.trigger("sexyPost.abort");    
       }
 
       xhr.upload["onprogress"] = function(event) { 
         var completed = event.loaded / event.total;
-        form.trigger("sexyPost.onprogress", [completed, event.loaded, event.total]); 
+        form.trigger("sexyPost.progress", [completed, event.loaded, event.total]); 
       }
 
       // this function will clear all the fields in a form
@@ -93,7 +93,7 @@
           var files = this.files;
           for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
         });
-
+        
         $("select option:selected", form).each(function(){
           data.append($(this).parent().attr("name"), $(this).val());
         });
