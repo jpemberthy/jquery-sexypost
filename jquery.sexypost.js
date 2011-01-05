@@ -84,23 +84,35 @@
       // this function will POST the contents of the selected form via XmlHttpRequest.
       function send(form, action, method, async) {
         var data = new FormData();
-        
-        $("input:text, input:hidden, input:password, textarea", form).each(function(){
+
+        var fields = $(form).serializeArray();
+        $.each(fields, function(){
           data.append($(this).attr("name"), $(this).val());
         });
-        
+  
         $("input:file", form).each(function(){
           var files = this.files;
           for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
         });
-        
-        $("select option:selected", form).each(function(){
-          data.append($(this).parent().attr("name"), $(this).val());
-        });
-        
-        $("input:checked", form).each(function(){
-          data.append($(this).attr("name"), $(this).val());
-        });
+
+        //var data = new FormData();
+        //
+        //$("input:text, input:hidden, input:password, textarea", form).each(function(){
+        //  data.append($(this).attr("name"), $(this).val());
+        //});
+        //
+        //$("input:file", form).each(function(){
+        //  var files = this.files;
+        //  for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
+        //});
+        //
+        //$("select option:selected", form).each(function(){
+        //  data.append($(this).parent().attr("name"), $(this).val());
+        //});
+        //
+        //$("input:checked", form).each(function(){
+        //  data.append($(this).attr("name"), $(this).val());
+        //});
         
         xhr.open(method, action, async);  
 				xhr.setRequestHeader("Cache-Control", "no-cache");
