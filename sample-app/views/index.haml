@@ -77,22 +77,28 @@
       %h3 Usage
       Define your form as usual:
       %p
-      %div(style="font-size: 0.7em")
-        :escaped
-          <form method="POST" action="/" enctype="multipart/form-data">
-            <input name="attachments[]" id="attachments" multiple="multiple" type="file" />
-            <input type="text" name="description" id="description"/>
-            <input type="submit" />
-          </form> 
+      %div(style="font-size: 0.9em")
+        %pre
+          %code
+            :escaped
+              <form method="POST" action="/" enctype="multipart/form-data">
+                <input name="attachments[]" id="attachments" multiple="multiple" type="file" />
+                <input type="text" name="description" id="description"/>
+                <input type="submit" />
+              </form> 
       %p
       
       Then sexify:
       %p
-      %div(style="font-size: 0.7em")
-        :escaped
-          <script type="text/javascript">
-            $(document).ready(function(){ $("form").sexyPost(); });
-          </script> 
+      %div(style="font-size: 0.9em")
+        %pre
+          %code
+            :escaped
+              <script type="text/javascript">
+                $(function(){ 
+                   $("form").sexyPost(); 
+                 });
+              </script> 
 
     :javascript
       $(document).ready(function(){

@@ -24,13 +24,13 @@
     };
 
     if (options) $.extend(config, options);
-    
+
     this.each(function(){
-			for (event in events) {
-				if (config[events[event]]) {
-					$(this).bind("sexyPost." + events[event], config[events[event]]);
-				}
-			}
+      for (event in events) {
+        if (config[events[event]]) {
+          $(this).bind("sexyPost." + events[event], config[events[event]]);
+        }
+      }
 
       // override default submit event for the form to use the plugins own post function. 
       var form = $(this);
@@ -85,38 +85,21 @@
       function send(form, action, method, async) {
         var data = new FormData();
 
-        var fields = $(form).serializeArray();
-        $.each(fields, function(){
-          data.append($(this).attr("name"), $(this).val());
+        // serialize "regular" form fields
+        $.each($(form).serializeArray(), function(index, field){
+          data.append(field.name, field.value);
         });
   
-        $("input:file", form).each(function(){
-          var files = this.files;
-          for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
+        // serialize file form fields
+        $("input:file", form).each(function(i, field){
+          var files = field.files;
+          for (i=0; i<files.length; i++) data.append(field.name, files[i]);
         });
 
-        //var data = new FormData();
-        //
-        //$("input:text, input:hidden, input:password, textarea", form).each(function(){
-        //  data.append($(this).attr("name"), $(this).val());
-        //});
-        //
-        //$("input:file", form).each(function(){
-        //  var files = this.files;
-        //  for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
-        //});
-        //
-        //$("select option:selected", form).each(function(){
-        //  data.append($(this).parent().attr("name"), $(this).val());
-        //});
-        //
-        //$("input:checked", form).each(function(){
-        //  data.append($(this).attr("name"), $(this).val());
-        //});
-        
+        // now send the serialized field over
         xhr.open(method, action, async);  
-				xhr.setRequestHeader("Cache-Control", "no-cache");
-				xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhr.setRequestHeader("Cache-Control", "no-cache");
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.send(data);
       }
     });
