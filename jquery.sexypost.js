@@ -24,7 +24,7 @@
     };
 
     if (options) $.extend(config, options);
-
+    
     this.each(function(){
       for (event in events) {
         if (config[events[event]]) {
@@ -84,19 +84,18 @@
       // this function will POST the contents of the selected form via XmlHttpRequest.
       function send(form, action, method, async) {
         var data = new FormData();
-
-        // serialize "regular" form fields
-        $.each($(form).serializeArray(), function(index, field){
-          data.append(field.name, field.value);
+        
+        var fields = $(form).serializeArray();
+        $.each(fields, function(){
+          data.append($(this).attr("name"), $(this).val());
         });
-  
-        // serialize file form fields
-        $("input:file", form).each(function(i, field){
-          var files = field.files;
-          for (i=0; i<files.length; i++) data.append(field.name, files[i]);
+        
+        $("input:file", form).each(function(){
+          var files = this.files;
+          for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
         });
 
-        // now send the serialized field over
+        // now send the serialized fields over
         xhr.open(method, action, async);  
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
