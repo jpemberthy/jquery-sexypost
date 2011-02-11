@@ -10,12 +10,12 @@
 (function($){
   $.fn.sexyPost = function(options) {
     var events = [ "start", "progress", "complete", "error", "abort", "filestart", "filecomplete" ];
-    var config = { 
+    var config = {
       // options
       async    : true,                                           // set to true to submit the form asynchronously
       autoclear: false,                                          // automatically clear the form on successful post
-                                                                 
-      // events                                                  
+
+      // events
       start   : function(event) { },                           // triggered right before the form is submitted
       progress: function(event, completed, loaded, total) { }, // repeatedly triggered while the form is being submitted
       complete: function(event, responseText) { },             // triggered after the form has been fully submitted
@@ -24,7 +24,7 @@
     };
 
     if (options) $.extend(config, options);
-    
+
     this.each(function(){
       for (event in events) {
         if (config[events[event]]) {
@@ -32,16 +32,16 @@
         }
       }
 
-      // override default submit event for the form to use the plugins own post function. 
+      // override default submit event for the form to use the plugins own post function.
       var form = $(this);
 
-      form.submit(function(){ 
+      form.submit(function(){
         var action = $(this).attr("action");
         var method = $(this).attr("method");
         send(this, action, method, config.async);
-        return false; 
+        return false;
       });
-      
+
       // controls may trigger form submission if tagged with the submit-trigger class
       $(".submit-trigger", form).not(":button")
         .bind("change", function(){ form.trigger("submit"); });
@@ -51,27 +51,27 @@
 
       // create request object and configure event handlers
       var xhr = new XMLHttpRequest();
-      
-      xhr.onloadstart = function(event) { 
+
+      xhr.onloadstart = function(event) {
         form.trigger("sexyPost.start");
       }
 
-      xhr.onload = function(event) { 
+      xhr.onload = function(event) {
         if (config.autoclear && (xhr.status >= 200) && (xhr.status <= 204)) clearFields(form);
-        form.trigger("sexyPost.complete", [xhr.responseText]); 
+        form.trigger("sexyPost.complete", [xhr.responseText]);
       }
 
-      xhr.onerror = function(event) { 
-        form.trigger("sexyPost.error");    
+      xhr.onerror = function(event) {
+        form.trigger("sexyPost.error");
       }
 
-      xhr.onabort = function(event) { 
-        form.trigger("sexyPost.abort");    
+      xhr.onabort = function(event) {
+        form.trigger("sexyPost.abort");
       }
 
-      xhr.upload["onprogress"] = function(event) { 
+      xhr.upload["onprogress"] = function(event) {
         var completed = event.loaded / event.total;
-        form.trigger("sexyPost.progress", [completed, event.loaded, event.total]); 
+        form.trigger("sexyPost.progress", [completed, event.loaded, event.total]);
       }
 
       // this function will clear all the fields in a form
@@ -80,14 +80,14 @@
           .not(":button, :submit, :reset, :hidden")
           .removeAttr("checked").removeAttr("selected").val("");
       }
-      
+
       // this function will POST the contents of the selected form via XmlHttpRequest.
       function send(form, action, method, async) {
         // now send the serialized fields over
-        xhr.open(method, action, async);  
+        xhr.open(method, action, async);
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        
+
         if (window.FormData) {
           var data = new FormData();
 
@@ -101,11 +101,11 @@
             for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
           });
 
-          xhr.send(data); 
+          xhr.send(data);
         } else if (window.FileReader) {
           var upl = new Uploader(form);
           upl.send(xhr);
-        } 
+        }
       }
     });
 
