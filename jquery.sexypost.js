@@ -83,23 +83,29 @@
       
       // this function will POST the contents of the selected form via XmlHttpRequest.
       function send(form, action, method, async) {
-        var data = new FormData();
-        
-        var fields = $(form).serializeArray();
-        $.each(fields, function(){
-          data.append($(this).attr("name"), $(this).val());
-        });
-        
-        $("input:file", form).each(function(){
-          var files = this.files;
-          for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
-        });
-
         // now send the serialized fields over
         xhr.open(method, action, async);  
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        xhr.send(data);
+        
+        if (window.FormData) {
+          var data = new FormData();
+
+          var fields = $(form).serializeArray();
+          $.each(fields, function(){
+            data.append($(this).attr("name"), $(this).val());
+          });
+
+          $("input:file", form).each(function(){
+            var files = this.files;
+            for (i=0; i<files.length; i++) data.append($(this).attr("name"), files[i]);
+          });
+
+          xhr.send(data); 
+        } else if (window.FileReader) {
+          var upl = new Uploader(form);
+          upl.send(xhr);
+        } 
       }
     });
 
